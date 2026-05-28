@@ -149,6 +149,7 @@ TrueCareer is a prototype system. It does not replace professional counseling or
 * Pandas
 * NumPy
 * Scikit-learn
+* Plotly
 * Streamlit
 * GitHub
 * VS Code
@@ -162,18 +163,73 @@ truecareer-career-guidance-system/
 ├── requirements.txt
 │
 ├── data/
-│   └── truecareer_dataset_v1_4_vietnam_context.csv
+│   ├── truecareer_dataset_v1_4_vietnam_context.csv
+│   └── truecareer_clustered_output.csv
 │
 ├── docs/
 │
 ├── src/
+│   ├── data_preprocessing.py
+│   ├── clustering.py
+│   └── recommendation.py
 │
 ├── dashboard/
+│   └── app.py
 │
 ├── screenshots/
 │
 └── prototype/
 ```
+
+## How to Run the Project
+
+### 1. Install Required Libraries
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Preview the Dataset
+
+```bash
+python src/data_preprocessing.py
+```
+
+This script loads the dataset and displays the dataset shape, column names, and first five rows.
+
+### 3. Run K-Means Clustering
+
+```bash
+python src/clustering.py
+```
+
+This script selects numeric assessment features, standardizes the data, applies K-Means clustering with six clusters, and saves the clustered output to:
+
+```text
+data/truecareer_clustered_output.csv
+```
+
+### 4. View Recommendation Summary
+
+```bash
+python src/recommendation.py
+```
+
+This script displays the distribution of recommended majors, mentor types, and career path examples.
+
+### 5. Launch the Dashboard
+
+```bash
+streamlit run dashboard/app.py
+```
+
+The dashboard visualizes cluster distribution, recommended major distribution, and filtered student profiles.
+
+## Prototype Integration
+
+This GitHub repository focuses on the data and recommendation logic of TrueCareer, including dataset design, K-Means clustering, recommendation mapping, and dashboard visualization.
+
+The Axure UI prototype and presentation slides can be used to demonstrate the user interface and project concept. In future development, the UI prototype can be connected with the data logic to form a complete career guidance system.
 
 ## Future Improvements
 
