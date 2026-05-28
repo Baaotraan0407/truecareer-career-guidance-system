@@ -8,6 +8,26 @@ The system helps students explore suitable academic majors, courses, mentor type
 
 This project demonstrates how assessment data can be transformed into structured feature scores, analyzed through clustering, and used to support personalized recommendation logic.
 
+## Live Demo and Prototype
+
+### Streamlit Dashboard
+
+The Streamlit dashboard demonstrates the data analysis and recommendation output of TrueCareer, including student cluster distribution, recommended major distribution, and filtered student profiles.
+
+Live dashboard: [View TrueCareer Dashboard](https://truecareer-career-guidance-system-j2ayh9kkh4s2pjjeufejfw.streamlit.app/)
+
+### Axure UI Prototype
+
+The Axure prototype demonstrates the user interface and user journey of TrueCareer, including student entry, career assessment, result viewing, payment flow, and mentor recommendation.
+
+UI prototype: [View TrueCareer Axure Prototype](https://fjsshr.axshare.com/#id=1sxs4v&p=welcome)
+
+### Presentation
+
+The presentation explains the business problem, product concept, customer journey, business objective, and prototype design of TrueCareer.
+
+Presentation file: `presentation/TrueCareer_presentation.pdf`
+
 ## Problem Background
 
 Many Vietnamese high school students face difficulty choosing suitable university majors and future career paths. Although students may have different academic strengths, interests, family conditions, and career priorities, career guidance is often still based on general advice rather than structured assessment data.
@@ -85,6 +105,24 @@ Major, Course, Mentor & Career Path Recommendation
 Dashboard Visualization
 ```
 
+## Prototype Integration
+
+This project combines four layers:
+
+1. **UI Prototype Layer**
+   The Axure prototype shows how students interact with the system, including platform entry, assessment flow, result page, payment process, and mentor recommendation.
+
+2. **Data Processing Layer**
+   Python scripts are used to load the dataset, preprocess student assessment features, and apply K-Means clustering.
+
+3. **Recommendation Layer**
+   Cluster results are mapped to recommended majors, courses, mentor types, and career paths.
+
+4. **Dashboard Layer**
+   The Streamlit dashboard visualizes student clusters, recommended majors, and filtered student profiles for demonstration and analysis.
+
+Together, these components form a complete career guidance prototype that connects user experience design with data-driven recommendation logic.
+
 ## Technical Workflow
 
 The technical workflow includes four main steps:
@@ -151,6 +189,7 @@ TrueCareer is a prototype system. It does not replace professional counseling or
 * Scikit-learn
 * Plotly
 * Streamlit
+* Axure RP
 * GitHub
 * VS Code
 
@@ -166,8 +205,6 @@ truecareer-career-guidance-system/
 │   ├── truecareer_dataset_v1_4_vietnam_context.csv
 │   └── truecareer_clustered_output.csv
 │
-├── docs/
-│
 ├── src/
 │   ├── data_preprocessing.py
 │   ├── clustering.py
@@ -176,9 +213,13 @@ truecareer-career-guidance-system/
 ├── dashboard/
 │   └── app.py
 │
-├── screenshots/
+├── prototype/
+│   └── axure_link.md
 │
-└── prototype/
+├── presentation/
+│   └── TrueCareer_presentation.pdf
+│
+└── screenshots/
 ```
 
 ## How to Run the Project
@@ -217,19 +258,13 @@ python src/recommendation.py
 
 This script displays the distribution of recommended majors, mentor types, and career path examples.
 
-### 5. Launch the Dashboard
+### 5. Launch the Dashboard Locally
 
 ```bash
 streamlit run dashboard/app.py
 ```
 
 The dashboard visualizes cluster distribution, recommended major distribution, and filtered student profiles.
-
-## Prototype Integration
-
-This GitHub repository focuses on the data and recommendation logic of TrueCareer, including dataset design, K-Means clustering, recommendation mapping, and dashboard visualization.
-
-The Axure UI prototype and presentation slides can be used to demonstrate the user interface and project concept. In future development, the UI prototype can be connected with the data logic to form a complete career guidance system.
 
 ## Future Improvements
 
