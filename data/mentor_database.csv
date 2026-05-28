@@ -1,0 +1,13 @@
+mentor_id,mentor_name,mentor_type,expertise,experience_years,price_range
+M001,Nguyen Minh Anh,Technology Mentor,Software Engineering and Data Analytics,5,Medium
+M002,Tran Quoc Huy,Business-Tech Mentor,Information Systems and Business Analysis,6,Medium
+M003,Le Hoang Nam,Finance Mentor,Banking and Financial Analysis,7,Medium
+M004,Pham Gia Linh,Finance-Tech Mentor,FinTech and Digital Banking,4,Medium
+M005,Do Thanh Mai,Business Mentor,Marketing and Business Strategy,6,Medium
+M006,Hoang Bao Khanh,Design / Product Mentor,UX Design and Product Thinking,5,Medium
+M007,Nguyen Thao Vy,Communication / Media Mentor,Digital Media and Communication,4,Low
+M008,Le Phuong Anh,Education / Counseling Mentor,Education and Student Counseling,6,Low
+M009,Tran Duc Long,Law / Public Policy Mentor,Law and Public Policy,5,Medium
+M010,Pham Ngoc Chau,Healthcare / Medical Career Mentor,Healthcare and Medical Career Guidance,8,High
+M011,Bui Khanh Linh,HR / Career Mentor,Human Resource Management and Career Planning,5,Low
+M012,General Career Advisor,General Career Mentor,Career Exploration and Study Planning,6,Low

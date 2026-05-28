@@ -4,7 +4,7 @@ import plotly.express as px
 
 
 DATA_PATH = "data/truecareer_clustered_output.csv"
-
+MENTOR_PATH = "data/mentor_database.csv"
 
 st.set_page_config(
     page_title="TrueCareer Dashboard",
@@ -12,15 +12,14 @@ st.set_page_config(
     layout="wide"
 )
 
-
 @st.cache_data
 def load_data():
     df = pd.read_csv(DATA_PATH)
-    return df
+    mentors = pd.read_csv(MENTOR_PATH)
+    return df, mentors
 
 
-df = load_data()
-
+df, mentors = load_data()
 st.title("🎓 TrueCareer Dashboard")
 st.write("Assessment-driven career guidance and course recommendation prototype for Vietnamese high school students.")
 
@@ -99,3 +98,39 @@ st.dataframe(
     ],
     use_container_width=True
 )
+
+st.subheader("Mentor-to-Student Matching Demo")
+
+selected_mentor = st.selectbox(
+    "Select a mentor to view matched students",
+    mentors["mentor_name"]
+)
+
+mentor_row = mentors[mentors["mentor_name"] == selected_mentor].iloc[0]
+mentor_type = mentor_row["mentor_type"]
+
+st.write("Mentor type:", mentor_type)
+
+matched_students = df[df["recommended_mentor_type"] == mentor_type]
+
+st.write("Number of matched students:", len(matched_students))
+
+if matched_students.empty:
+    st.warning("No students are currently matched with this mentor type.")
+else:
+    st.dataframe(
+        matched_students[
+            [
+                "student_id",
+                "gpa_band",
+                "admission_subject_group",
+                "high_school_subject_orientation",
+                "student_cluster",
+                "kmeans_cluster_id",
+                "recommended_major",
+                "recommended_mentor_type",
+                "recommended_career_path",
+            ]
+        ],
+        use_container_width=True
+    )
