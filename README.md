@@ -6,7 +6,7 @@ TrueCareer is an assessment-driven career guidance and course recommendation pro
 
 The system helps students explore suitable academic majors, courses, mentor types, and career pathways based on student profile data, assessment responses, academic orientation, and career interests.
 
-This project demonstrates how assessment data can be transformed into structured feature scores, analyzed through clustering, and used to support personalized recommendation logic.
+This project demonstrates how assessment data can be transformed into structured feature scores, analyzed through K-Means clustering, and used to support rule-based recommendation logic.
 
 ## Live Demo and Prototype
 
@@ -52,17 +52,17 @@ Version: v1.4
 
 The dataset includes:
 
-* Student background information
-* Vietnamese university admission subject groups
-* High-school subject orientation
-* Academic skill scores
-* Interest orientation scores
-* Personality and work-style scores
-* Learning and guidance needs
-* Recommended majors
-* Recommended courses
-* Recommended mentor types
-* Recommended career paths
+- Student background information
+- Vietnamese university admission subject groups
+- High-school subject orientation
+- Academic skill scores
+- Interest orientation scores
+- Personality and work-style scores
+- Learning and guidance needs
+- Recommended majors
+- Recommended courses
+- Recommended mentor types
+- Recommended career paths
 
 Important note: this dataset is synthetic and is used for prototype demonstration only. It does not represent real student records.
 
@@ -72,12 +72,12 @@ This dataset is designed for the Vietnamese high-school and university admission
 
 Instead of using only traditional exam blocks, the dataset uses the column `admission_subject_group`, including common university admission combinations such as:
 
-* A00 - Math, Physics, Chemistry
-* A01 - Math, Physics, English
-* B00 - Math, Chemistry, Biology
-* C00 - Literature, History, Geography
-* D01 - Math, Literature, English
-* Undecided
+- A00 - Math, Physics, Chemistry
+- A01 - Math, Physics, English
+- B00 - Math, Chemistry, Biology
+- C00 - Literature, History, Geography
+- D01 - Math, Literature, English
+- Undecided
 
 The dataset also includes `high_school_subject_orientation` to reflect students' high-school learning orientation under Vietnam's current career-oriented upper-secondary education system.
 
@@ -109,16 +109,16 @@ Dashboard Visualization
 
 This project combines four layers:
 
-1. **UI Prototype Layer**
+1. **UI Prototype Layer**  
    The Axure prototype shows how students interact with the system, including platform entry, assessment flow, result page, payment process, and mentor recommendation.
 
-2. **Data Processing Layer**
+2. **Data Processing Layer**  
    Python scripts are used to load the dataset, preprocess student assessment features, and apply K-Means clustering.
 
-3. **Recommendation Layer**
+3. **Recommendation Layer**  
    Cluster results are mapped to recommended majors, courses, mentor types, and career paths.
 
-4. **Dashboard Layer**
+4. **Dashboard Layer**  
    The Streamlit dashboard visualizes student clusters, recommended majors, and filtered student profiles for demonstration and analysis.
 
 Together, these components form a complete career guidance prototype that connects user experience design with data-driven recommendation logic.
@@ -131,9 +131,15 @@ The technical workflow includes four main steps:
 
 Student responses from the career assessment are converted into structured feature scores such as academic strength, interests, personality, learning preference, and guidance needs.
 
+Some behavioral features are directly mapped from assessment questions, while others are derived from related assessment responses using domain-informed synthetic rules.
+
 ### 2. Student Clustering
 
-K-Means clustering is used as an exploratory method to group students with similar assessment profiles. The model uses numeric assessment features and does not use recommendation output columns as clustering inputs.
+K-Means clustering is used as an exploratory method to group students with similar assessment profiles.
+
+The clustering model uses 22 numeric assessment-related features, including academic skills, interest orientation, personality and work-style indicators, and learning behavior features. The model uses only numeric assessment-related features and does not use recommendation output columns such as `student_cluster`, `recommended_major`, `recommended_courses`, `recommended_mentor_type`, or `recommended_career_path` as clustering inputs.
+
+The number of clusters is set to 6 based on the predefined student orientation groups used in the recommendation design.
 
 ### 3. Recommendation Mapping
 
@@ -147,14 +153,14 @@ The system visualizes student clusters, recommended academic fields, and guidanc
 
 The system uses six student orientation groups:
 
-| Cluster              | Description                                                           |
-| -------------------- | --------------------------------------------------------------------- |
-| Tech-Analytical      | Students with strong technology, logic, and analytical interests      |
-| Business-Strategic   | Students interested in business, management, and leadership           |
-| Finance-Oriented     | Students interested in finance, banking, data, or investment          |
+| Cluster | Description |
+|---|---|
+| Tech-Analytical | Students with strong technology, logic, and analytical interests |
+| Business-Strategic | Students interested in business, management, and leadership |
+| Finance-Oriented | Students interested in finance, banking, data, or investment |
 | Social-Communicative | Students with strong communication, teamwork, and helping orientation |
-| Creative-Design      | Students interested in design, media, creativity, and user experience |
-| Balanced Explorer    | Students who are still uncertain and need broader career exploration  |
+| Creative-Design | Students interested in design, media, creativity, and user experience |
+| Balanced Explorer | Students who are still uncertain and need broader career exploration |
 
 ## Recommendation Outputs
 
@@ -183,15 +189,15 @@ TrueCareer is a prototype system. It does not replace professional counseling or
 
 ## Technologies Used
 
-* Python
-* Pandas
-* NumPy
-* Scikit-learn
-* Plotly
-* Streamlit
-* Axure RP
-* GitHub
-* VS Code
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Plotly
+- Streamlit
+- Axure RP
+- GitHub
+- VS Code
 
 ## Project Structure
 
@@ -203,7 +209,9 @@ truecareer-career-guidance-system/
 │
 ├── data/
 │   ├── truecareer_dataset_v1_4_vietnam_context.csv
-│   └── truecareer_clustered_output.csv
+│   ├── truecareer_clustered_output.csv
+│   ├── truecareer_cluster_profile_summary.csv
+│   └── truecareer_recommendation_summary.csv
 │
 ├── src/
 │   ├── data_preprocessing.py
@@ -230,13 +238,13 @@ truecareer-career-guidance-system/
 pip install -r requirements.txt
 ```
 
-### 2. Preview the Dataset
+### 2. Preview and Validate the Dataset
 
 ```bash
 python src/data_preprocessing.py
 ```
 
-This script loads the dataset and displays the dataset shape, column names, and first five rows.
+This script loads the dataset, checks basic data quality, displays the dataset shape, shows column names, and prints selected categorical distributions.
 
 ### 3. Run K-Means Clustering
 
@@ -244,10 +252,11 @@ This script loads the dataset and displays the dataset shape, column names, and 
 python src/clustering.py
 ```
 
-This script selects numeric assessment features, standardizes the data, applies K-Means clustering with six clusters, and saves the clustered output to:
+This script selects 22 numeric assessment-related features, standardizes the data, applies K-Means clustering with six clusters, calculates the silhouette score, and saves two outputs:
 
 ```text
 data/truecareer_clustered_output.csv
+data/truecareer_cluster_profile_summary.csv
 ```
 
 ### 4. View Recommendation Summary
@@ -256,7 +265,11 @@ data/truecareer_clustered_output.csv
 python src/recommendation.py
 ```
 
-This script displays the distribution of recommended majors, mentor types, and career path examples.
+This script displays the distribution of recommended majors, mentor types, K-Means clusters, and career path examples. It also saves a recommendation summary to:
+
+```text
+data/truecareer_recommendation_summary.csv
+```
 
 ### 5. Launch the Dashboard Locally
 
@@ -270,10 +283,10 @@ The dashboard visualizes cluster distribution, recommended major distribution, a
 
 Future versions of this project may include:
 
-* Real student assessment data collection
-* More detailed university admission data
-* Student feedback-based recommendation improvement
-* Counselor review function
-* Mentor profile database
-* More advanced recommendation algorithms
-* Model evaluation with real user outcomes
+- Real student assessment data collection
+- More detailed university admission data
+- Student feedback-based recommendation improvement
+- Counselor review function
+- Mentor profile database
+- More advanced recommendation algorithms
+- Model evaluation with real user outcomes
