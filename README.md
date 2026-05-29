@@ -290,6 +290,7 @@ truecareer-career-guidance-system/
 │
 ├── presentation/
 │   └── TrueCareer_presentation.pdf
+    └── TrueCareer_presentation.pptx
 │
 └── screenshots/
 ```
