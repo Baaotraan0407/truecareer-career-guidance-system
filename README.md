@@ -20,7 +20,7 @@ Live dashboard: [View TrueCareer Dashboard](https://truecareer-career-guidance-s
 
 ### Axure UI Prototype
 
-The Axure prototype demonstrates the user interface and user journey of TrueCareer, including student entry, career assessment, result viewing, payment flow, and mentor recommendation.
+The Axure prototype demonstrates the user interface and user journey of TrueCareer, including student entry, career assessment, result viewing, payment flow, and mentor recommendation. It focuses on the front-end user experience, while the data-driven clustering and recommendation logic are demonstrated through the Streamlit dashboard and Python scripts.
 
 UI prototype: [View TrueCareer Axure Prototype](https://fjsshr.axshare.com/#id=1sxs4v&p=welcome)
 
