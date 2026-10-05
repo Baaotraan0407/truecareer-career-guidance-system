@@ -1,6 +1,6 @@
 # TrueCareer – Data Prototype (Technical Details)
 
-[← Back to README]([https://github.com/Baaotraan0407/truecareer-career-guidance-system/blob/main/README.md])
+[← Back to README](https://github.com/Baaotraan0407/truecareer-career-guidance-system/blob/main/README.md)
 
 This document explains the data side of TrueCareer: how assessment answers are turned into feature scores, how students are grouped with K-Means, and how recommendations and mentor matching work. It supports the "recommended experts" step in the customer journey.
 
