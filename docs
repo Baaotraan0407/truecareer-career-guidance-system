@@ -1,0 +1,111 @@
+# US-TC-01: Select a Service Package and Pay to Connect with an Expert
+
+**Project:** TrueCareer – Career guidance platform for Vietnamese high school students
+**Project type:** Academic project · Role: Business Analyst
+**Related flow:** [Customer Journey](customer-journey.png), step *"Select service package & pay"* → *"Payment completed & ready to connect"*
+**Sitemap:** [sitemap.png](sitemap.png)
+
+> UI labels are shown in English with the original Vietnamese label in parentheses, as used in the prototype.
+
+---
+
+## 1. User Story
+
+As a **student who has completed the career assessment**,
+I want to **select a service package and pay for the expert I have chosen**,
+so that **I can be connected to a 1-on-1 career guidance session**.
+
+## 2. Preconditions
+
+- The student is logged in.
+- The student has completed the assessment and has recommendation results.
+- The student has clicked **"Connect now" ("Kết nối ngay")** on an expert in the recommended list.
+
+## 3. Business Rules
+
+| ID | Rule |
+|---|---|
+| BR1 | Only students who have completed the assessment can access the payment screen. |
+| BR2 | Each payment order is linked to exactly 1 student, 1 expert, and 1 package. |
+| BR3 | There are 2 package types: **pay-per-session** and **multi-session bundle**\*. Prices come from the Admin configuration; the client cannot modify prices. |
+| BR4 | An order in *Pending Payment* for more than **15 minutes**\* automatically changes to *Expired*. |
+| BR5 | Only when an order is *Successful* does the system create a consultation session and allow the student to connect with the expert. |
+| BR6 | A student cannot create a new order with the same expert while another order with that expert is in *Pending Payment*. |
+| BR7 | If the expert becomes unavailable before payment is completed, the system blocks the payment. |
+| BR8 | If the student **retakes the assessment** while an order is in *Pending Payment*, that order is cancelled, because the recommended expert list may change. |
+| BR9 | Each click on "Pay" creates **at most 1 transaction**; repeated clicks while processing are ignored. |
+
+## 4. Order Status
+
+| From | Event | To |
+|---|---|---|
+| — | Student clicks "Pay" | Pending Payment |
+| Pending Payment | Payment gateway starts processing | Processing |
+| Processing | Gateway returns success | Successful |
+| Processing | Gateway returns an error or rejection | Failed |
+| Pending Payment | 15 minutes pass without payment | Expired |
+| Pending Payment | Student retakes the assessment | Cancelled |
+
+## 5. Permissions
+
+| Role | Permissions |
+|---|---|
+| Student | Create orders; view own orders and **payment history** (under *Activity History*) |
+| Expert | View own paid consultation sessions; cannot view transaction details |
+| Admin | View all orders; configure packages and prices; handle complaints |
+
+## 6. Acceptance Criteria
+
+**AC1 – Successful payment**
+- **Given** the student has selected a package and a payment method
+- **When** the student clicks "Pay" ("Thanh toán") and the gateway returns success
+- **Then** the order changes to *Successful*, the screen shows a payment success message with the selected expert's information, and displays the **"Connect now" ("Kết nối ngay")** button.
+
+**AC2 – No package selected**
+- **Given** the student has not selected a service package
+- **When** the student is on the payment screen
+- **Then** the "Pay" button is disabled.
+
+**AC3 – Failed payment**
+- **Given** the order is in *Processing*
+- **When** the payment gateway returns an error
+- **Then** the order changes to *Failed*, the system shows the reason, keeps the selected package, and allows the student to retry or change the payment method.
+
+**AC4 – Expired order**
+- **Given** the order is in *Pending Payment*
+- **When** 15 minutes pass without payment
+- **Then** the order changes to *Expired* and the student must create a new order.
+
+**AC5 – Expert unavailable**
+- **Given** the student is on the payment screen
+- **When** the expert becomes unavailable
+- **Then** the system blocks the payment, notifies the student, and shows the "Connect with another expert" ("Kết nối với chuyên gia khác") button.
+
+**AC6 – Access without completing the assessment**
+- **Given** the student has not completed the assessment
+- **When** the student opens the payment URL directly
+- **Then** the system redirects the student to the assessment page.
+
+**AC7 – Multiple clicks on "Pay"**
+- **Given** the student has clicked "Pay" and the order is in *Processing*
+- **When** the student clicks "Pay" again
+- **Then** the system does not create a new transaction, and the button shows a processing state.
+
+**AC8 – Retaking the assessment with a pending order**
+- **Given** the student has an order in *Pending Payment*
+- **When** the student selects "Retake assessment" ("Làm lại bài Test")
+- **Then** the system warns that the order will be cancelled; if the student confirms, the order changes to *Cancelled*.
+
+## 7. Exceptions
+
+- **Connection lost during processing:** the order stays in *Processing*; the system reconciles with the payment gateway and never charges the student twice.
+- **Student clicks "Back" ("Quay lại"):** no order is created; the student returns to the recommended expert list.
+
+## 8. Out of Scope
+
+- Refunds: handled under the *Refund Policy*, in a separate user story.
+- Waiting room, consultation session, and post-session rating: covered by the next user stories in the customer journey.
+
+---
+
+\* *BA assumption, to be confirmed with business stakeholders.*
