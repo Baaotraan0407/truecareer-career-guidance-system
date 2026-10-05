@@ -59,6 +59,7 @@ Payment methods: MoMo, ZaloPay, Visa/Mastercard, domestic ATM card / Internet Ba
 | BR8 | If the payment isn't completed within 15 minutes,\* the order expires. |
 | BR9 | Clicking "Confirm payment" several times must never create more than one transaction. |
 | BR10 | If the expert goes offline after payment, the credits stay in the account. The student can call another expert. |
+| BR11 | An order is created when the student clicks "Pay" on the package screen, and starts as *Pending Payment*. |
 
 \* My assumption. Needs confirmation from the business side.
 
@@ -99,7 +100,7 @@ Then "Confirm payment" stays disabled.
 **AC4 – Changing the package**
 Given the student is on the payment screen
 When they click "Choose another package"
-Then they go back to the package screen, the same expert is still selected, and no order is created.
+Then they go back to the package screen, the same expert is still selected, and the current order becomes *Cancelled*.
 
 **AC5 – Payment fails**
 Given the order is *Processing*
