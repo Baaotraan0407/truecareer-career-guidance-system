@@ -3,12 +3,13 @@
 TrueCareer helps Vietnamese high school students choose a suitable major and career path. Students take a career assessment, get matched with experts who fit their profile, and talk to them through a 1-on-1 video call.
 
 **Project type:** Academic group project
+
 **My role:** Business Analyst. I worked on the problem analysis, customer journey, user stories (business rules, acceptance criteria, states, permissions) and the UI prototype. I also built a small data prototype to test the recommendation logic.
 
 | | Link |
 |---|---|
 | UI prototype (Axure) | https://fjsshr.axshare.com/?id=1sxs4v |
-| User story sample | [docs/user-story-payment-en.md](docs/user-story-payment-en.md) |
+| User story sample | [User Story](User%20Story) |
 | Presentation | [Presentation/TrueCareer_presentation.pdf](Presentation/TrueCareer_presentation.pdf) |
 | Data dashboard (Streamlit) | [Live demo](https://truecareer-career-guidance-system-j2ayh9kkh4s2pjjeufejfw.streamlit.app/) |
 
@@ -48,9 +49,8 @@ Each step in the presentation lists the screen elements and the call-to-action b
 
 | Document | What's inside |
 |---|---|
-| [User story: buy a call package](docs/user-story-payment-en.md) | Business rules, order states, permissions, acceptance criteria (Given/When/Then), edge cases, prototype gaps found, open questions |
-| [User story (Vietnamese)](docs/user-story-payment-vi.md) | Same content in Vietnamese |
-| [Data prototype](docs/data-prototype.md) | Dataset, clustering, recommendation and mentor matching details |
+| [User story: buy a call package](User%20Story) | Business rules, order states, permissions, acceptance criteria (Given/When/Then), edge cases, prototype gaps found, open questions |
+| [Data prototype](data-prototype) | Dataset, clustering, recommendation and mentor matching details |
 
 While writing the user story, I reviewed the prototype screen by screen and found a few gaps (for example, the payment screen showing the wrong amount for the selected package). These are listed in the document.
 
@@ -72,19 +72,20 @@ To check that the "recommended experts" step is realistic, I built a small data 
 
 This part is exploratory. It is not a validated prediction model.
 
-👉 Full technical details: [docs/data-prototype.md](docs/data-prototype.md)
+👉 Full technical details: [data-prototype](data-prototype)
 
 ## 7. Project structure
 
 ```
 truecareer-career-guidance-system/
-├── docs/            # BA documents (user stories)
 ├── Presentation/    # Final presentation (PDF, PPTX)
 ├── prototype/       # Axure prototype link
 ├── data/            # Synthetic dataset and outputs
 ├── src/             # Data processing, clustering, recommendation scripts
 ├── dashboard/       # Streamlit app
-└── screenshots/
+├── screenshots/
+├── User Story       # BA document: user story sample
+└── data-prototype   # Technical details of the data prototype
 ```
 
 ## 8. How to run the data prototype
