@@ -9,7 +9,7 @@ TrueCareer helps Vietnamese high school students choose a suitable major and car
 | | Link |
 |---|---|
 | UI prototype (Axure) | https://fjsshr.axshare.com/?id=1sxs4v |
-| User story sample | [User Story](User%20Story) |
+| User story sample | [User Story]([User%20Stor](https://github.com/Baaotraan0407/truecareer-career-guidance-system/blob/main/User%20Story.md)y) |
 | Presentation | [Presentation/TrueCareer_presentation.pdf](Presentation/TrueCareer_presentation.pdf) |
 | Data dashboard (Streamlit) | [Live demo](https://truecareer-career-guidance-system-j2ayh9kkh4s2pjjeufejfw.streamlit.app/) |
 
@@ -49,8 +49,8 @@ Each step in the presentation lists the screen elements and the call-to-action b
 
 | Document | What's inside |
 |---|---|
-| [User story: buy a call package](User%20Story) | Business rules, order states, permissions, acceptance criteria (Given/When/Then), edge cases, prototype gaps found, open questions |
-| [Data prototype](data-prototype) | Dataset, clustering, recommendation and mentor matching details |
+| [User story: buy a call package]([User%20Story](https://github.com/Baaotraan0407/truecareer-career-guidance-system/blob/main/User%20Story.md)) | Business rules, order states, permissions, acceptance criteria (Given/When/Then), edge cases, prototype gaps found, open questions |
+| [Data prototype]([data-prototype](https://github.com/Baaotraan0407/truecareer-career-guidance-system/blob/main/data-prototype.md)) | Dataset, clustering, recommendation and mentor matching details |
 
 While writing the user story, I reviewed the prototype screen by screen and found a few gaps (for example, the payment screen showing the wrong amount for the selected package). These are listed in the document.
 
@@ -72,7 +72,7 @@ To check that the "recommended experts" step is realistic, I built a small data 
 
 This part is exploratory. It is not a validated prediction model.
 
-👉 Full technical details: [data-prototype](data-prototype)
+👉 Full technical details: [data-prototype]([data-prototype](https://github.com/Baaotraan0407/truecareer-career-guidance-system/blob/main/data-prototype.md))
 
 ## 7. Project structure
 
