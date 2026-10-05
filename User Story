@@ -1,0 +1,145 @@
+# US-TC-01: Buy a call package to connect with an expert
+
+**Project:** TrueCareer (academic group project) · **My role:** Business Analyst
+**Where it fits:** Customer Journey (slide 12 of the presentation), right after the student picks an expert and before the call starts.
+**Presentation:** [TrueCareer presentation (PDF)](../Presentation/TrueCareer_presentation.pdf)
+**Prototype:** https://fjsshr.axshare.com/?id=1sxs4v
+
+## Context
+
+After the assessment, students see a list of recommended experts who are online right now. Browsing is free, but calling an expert needs a call package. This story covers that step: the student picks a package, pays, and gets the "Connect now" button.
+
+I picked this story because payment is where most of the edge cases are. Money is involved, the expert can go offline at any moment, and the student can change their mind halfway.
+
+## User story
+
+**As a** student who has finished the assessment,
+**I want to** buy a call package for the expert I picked,
+**so that** I can start a 1-on-1 video call with them right away.
+
+## Before this story starts
+
+- The student is logged in and has finished the assessment.
+- The student clicked "Connect now" on an expert who is online.
+- The student has no calls left in their account. (If they do, this story is skipped. See BR3.)
+
+## Related screens (prototype)
+
+| Step | Screen |
+|---|---|
+| Choose a package | Gói dịch vụ (page 11) |
+| Choose payment method | Phương thức thanh toán (page 12) |
+| Payment done | Thanh toán thành công (page 13) |
+| Connecting to expert | In calling (page 14) |
+| No expert online | E001 (page 7) |
+
+## Packages
+
+| Package | Price | Saving |
+|---|---|---|
+| 1 call | 189,000 đ | — |
+| 2 calls | 339,000 đ | ~10% |
+| 3 calls | 399,000 đ | ~30% |
+
+One call lasts **up to 60 minutes**.
+
+Payment methods: MoMo, ZaloPay, Visa/Mastercard, domestic ATM card / Internet Banking.
+
+## Business rules
+
+| ID | Rule |
+|---|---|
+| BR1 | Only students who have finished the assessment can open the package screen. |
+| BR2 | Calls bought are added to the student's account as call credits. |
+| BR3 | If the student already has call credits, "Connect now" skips payment and goes straight to connecting. |
+| BR4 | Each call uses 1 credit and lasts up to 60 minutes. |
+| BR5 | The amount on the payment screen must always match the package selected. |
+| BR6 | Prices are set by Admin. The client only shows them and can't change them. |
+| BR7 | Credits are only added after the payment gateway confirms success. Not before. |
+| BR8 | If the payment isn't completed within 15 minutes,\* the order expires. |
+| BR9 | Clicking "Confirm payment" several times must never create more than one transaction. |
+| BR10 | If the expert goes offline after payment, the credits stay in the account. The student can call another expert. |
+
+\* My assumption. Needs confirmation from the business side.
+
+## Order status
+
+```
+Pending Payment ──► Processing ──► Successful  (credits added)
+      │                  └──────► Failed
+      ├──► Expired     (15 min, no payment)
+      └──► Cancelled   (student leaves or picks another package)
+```
+
+## Who can do what
+
+| Role | Can | Can't |
+|---|---|---|
+| Student | Buy packages, see own credits and payment history | See other students' data |
+| Expert | See their own completed calls | See payment details |
+| Admin | See all orders, set packages and prices, handle complaints | — |
+
+## Acceptance criteria
+
+**AC1 – Payment goes through**
+Given the student picked a package and a payment method
+When they click "Confirm payment" and the gateway confirms
+Then the order becomes *Successful*, the credits are added, and they see "Payment successful" with the expert's photo, online status and a "Connect now" button.
+
+**AC2 – Amount matches the package**
+Given the student picked the 2-call package
+When they reach the payment screen
+Then the total shows 339,000 đ.
+
+**AC3 – No payment method chosen**
+Given the student is on the payment screen
+When no payment method is selected
+Then "Confirm payment" stays disabled.
+
+**AC4 – Changing the package**
+Given the student is on the payment screen
+When they click "Choose another package"
+Then they go back to the package screen, the same expert is still selected, and no order is created.
+
+**AC5 – Payment fails**
+Given the order is *Processing*
+When the gateway returns an error
+Then the order becomes *Failed*, no credits are added, the student sees why and can retry or switch method without picking the package again.
+
+**AC6 – Student already has credits**
+Given the student has at least 1 call credit
+When they click "Connect now" on an online expert
+Then they skip the package screen and go straight to "In calling".
+
+**AC7 – Expert goes offline after payment**
+Given the payment succeeded
+When the expert goes offline before the call connects
+Then the student is told, keeps their credits, and can pick another expert.
+
+**AC8 – Double click**
+Given the order is *Processing*
+When the student clicks "Confirm payment" again
+Then no new transaction is created.
+
+## Edge cases
+
+- **Connection drops while paying:** the order stays *Processing*. The system checks the real result with the payment gateway, so the student is never charged twice or charged without getting credits.
+- **Call drops before 60 minutes:** see open question 3.
+
+## Not in this story
+
+- Refunds (follow the Refund Policy, separate story).
+- The call itself, rating the expert, and "Continue connecting" after a call. These are the next stories in the journey.
+
+## Gaps I found in the prototype
+
+1. **The payment screen shows 189,000 đ even when the 2-call package is selected** on the screen before. BR5 and AC2 cover this.
+2. **There's no "payment failed" screen.** AC5 describes what it should do.
+3. **"Retake test" is planned in the presentation but has no screen yet.**
+
+## Open questions for the business team
+
+1. Can call credits be used with any expert, or only the one the student was looking at when buying?
+2. Do credits expire?
+3. If a call drops after 5 minutes, does it still use a full credit?
+4. Is 15 minutes the right payment timeout, or does the gateway already have its own?
