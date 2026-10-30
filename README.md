@@ -72,6 +72,27 @@ To check that the "recommended experts" step is realistic, I built a small data 
 
 This part is exploratory. It is not a validated prediction model.
 
+### Cluster quality check
+
+`src/evaluate_clusters.py` tests whether the clustering result means anything. Results are saved to `data/cluster_evaluation.csv`.
+
+| k | Silhouette | ARI vs. generated label |
+|---|---|---|
+| 2 | 0.099 | 0.211 |
+| 3 | 0.096 | 0.485 |
+| 4 | 0.106 | 0.655 |
+| 5 | 0.100 | 0.772 |
+| **6** | **0.099** | **0.846** |
+| 7 | 0.087 | 0.781 |
+| 8 | 0.072 | 0.650 |
+| 9 | 0.069 | 0.608 |
+
+What this shows:
+
+* **Clusters overlap strongly.** The silhouette score stays around 0.10 for every k (0 = overlapping, 1 = well separated), so the data does not support one clear number of groups. k = 6 was chosen to match the six orientation groups, not because the data prefers it.
+* **The result is circular.** The synthetic generator already assigned each student to a group (`student_cluster`). K-Means at k = 6 recovers those labels with ARI = 0.85, which confirms the pipeline runs as designed but tells us nothing about real students.
+* **Next step:** collect real assessment responses and repeat the check, ideally comparing K-Means with a simpler rule-based assignment.
+
 👉 Full technical details: [View data prototype](https://github.com/Baaotraan0407/truecareer-career-guidance-system/blob/main/data-prototype.md)
 
 ## 7. Project structure
@@ -94,6 +115,7 @@ truecareer-career-guidance-system/
 pip install -r requirements.txt
 python src/data_preprocessing.py   # validate the dataset
 python src/clustering.py           # run K-Means
+python src/evaluate_clusters.py    # check cluster quality (silhouette, ARI)
 python src/recommendation.py       # build recommendations
 streamlit run dashboard/app.py     # open the dashboard
 ```
@@ -107,3 +129,4 @@ streamlit run dashboard/app.py     # open the dashboard
 ---
 
 *TrueCareer is a prototype. It does not replace professional counseling or official university admission guidance.*
+
