@@ -4,7 +4,7 @@ TrueCareer helps Vietnamese high school students choose a suitable major and car
 
 **Project type:** Academic project
 
-**My role:** Business Analyst. I worked on the problem analysis, customer journey, user stories (business rules, acceptance criteria, states, permissions) and the UI prototype. I also built a small data prototype to test the recommendation logic.
+**My role:** I did the whole project: problem analysis, customer journey, user stories (business rules, acceptance criteria, states, permissions) and the UI prototype. I also built a small data prototype to test the recommendation logic.
 
 |                            | Link                                                                                                            |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------- |
